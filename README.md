@@ -1,2 +1,1 @@
-# vite-project
 # future-tech
