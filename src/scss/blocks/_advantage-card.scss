@@ -1,0 +1,20 @@
+@use '../helpers' as *;
+
+.advantage-card {
+  display: grid;
+  row-gap: rem(30);
+
+  &__link {
+    --circleSize: #{rem(52)};
+    --circleMLeft: #{rem(20)};
+
+    position: relative;
+    display: grid;
+    row-gap: rem(4);
+    padding-right: calc(var(--circleSize) + var(--circleMLeft));
+
+    &::after {
+      @include square(var(--circleSize));
+    }
+  }
+}
