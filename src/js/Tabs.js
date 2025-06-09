@@ -21,7 +21,7 @@ class Tabs {
         this.buttonElements = this.rootElement.querySelectorAll(this.selectors.button)
         this.contentElements = this.rootElement.querySelectorAll(this.selectors.content)
         this.state = {
-            activeTabIndex: [...this.buttonElements]
+            activeTabIndex: [...this.buttonElementse]
                 .findIndex((buttonElement) => buttonElement.classList.contains(this.stateClasses.isActive)),
         }
         this.limitTabsIndex = this.buttonElements.length - 1
