@@ -20,12 +20,27 @@ class Tabs {
         this.rootElement = rootElement
         this.buttonElements = this.rootElement.querySelectorAll(this.selectors.button)
         this.contentElements = this.rootElement.querySelectorAll(this.selectors.content)
-        this.state = {
-            activeTabIndex: [...this.buttonElementse]
+        this.state = this.getProxyState({
+            activeTabIndex: [...this.buttonElements]
                 .findIndex((buttonElement) => buttonElement.classList.contains(this.stateClasses.isActive)),
-        }
+        })
         this.limitTabsIndex = this.buttonElements.length - 1
         this.bindEvents ()
+    }
+
+    getProxyState(initialState) {
+        return new Proxy(initialState, {
+            get: (target, prop) => {
+                return target[prop]
+            },
+            set: (target, prop, value) => {
+                target[prop] = value
+
+                this.updateUI()
+
+                return true
+            },
+        })
     }
 
     updateUI() {
@@ -63,12 +78,15 @@ class Tabs {
             : this.state.activeTabIndex + 1
     }
 
-    firstTab = () => {}
-    lastTab = () => {}
+    firstTab = () => {
+        this.activateTab(0)
+    }
+    lastTab = () => {
+        this.activateTab(this.limitTabsIndex)
+    }
 
     onButtonClick(buttonIndex) {
         this.state.activeTabIndex = buttonIndex
-        this.updateUI()
     }
 
     onKeyDown = (event) =>{
